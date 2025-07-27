@@ -1,0 +1,28 @@
+# Template file for 'jdsp4linux-pipewire-bin'
+pkgname=jdsp4linux-pipewire-bin
+version=2.7.0
+revision=1
+archs="x86_64"
+hostmakedepends="tar xz"
+short_desc="Audio effect processor for PipeWire"
+maintainer="JuanMa <numblinux@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/Audio4Linux/JDSP4Linux"
+distfiles="https://github.com/Audio4Linux/JDSP4Linux/releases/download/${version}/jamesdsp-pipewire_${version}-30a30a_ubuntu22-04_amd64.deb"
+checksum=34ca987f55256ed27ae475e2f5eefcedbb8654a7f2a662a393ed863ef3537de8
+nostrip=yes
+
+do_extract() {
+	mkdir -p ${DESTDIR}
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/jamesdsp-pipewire_${version}-30a30a_ubuntu22-04_amd64.deb
+}
+
+do_install() {
+	tar xf data.tar.xz -C ${DESTDIR}
+
+	# Install the icons
+	for size in 24 32 48 64 128 256; do
+		# Create the icon directories
+		mkdir -p ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps
+	done
+}
